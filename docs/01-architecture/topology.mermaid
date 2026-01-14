@@ -1,0 +1,20 @@
+graph TD
+    User(Remote User) -->|UDP 1194| Gateway(Node A: OpenVPN)
+    Gateway -->|DNS Queries| PiHole(Pi-Hole DNS)
+    Gateway -->|Reverse Proxy| NPM(Nginx Proxy Manager)
+    
+    subgraph "Internal Network (192.168.1.x)"
+        NPM -->|HTTP| Gitea(Gitea Git Server)
+        NPM -->|HTTP| Jellyfin(Jellyfin Media)
+        NPM -->|HTTP| Kasm(Kasm VDI)
+        
+        Jellyfin -->|Mount| Storage(Node C: 1TB HDD)
+        Nextcloud -->|Mount| Storage
+    end
+    
+    subgraph "Hardware Layer"
+        NodeA[Node A: Gateway]
+        NodeB[Node B: AI/Compute]
+        NodeC[Node C: Storage]
+        NodeD[Node D: Worker]
+    end
