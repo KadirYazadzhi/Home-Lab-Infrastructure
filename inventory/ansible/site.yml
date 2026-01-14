@@ -1,0 +1,12 @@
+---
+- name: Provision Home Lab Cluster
+  hosts: cluster_nodes
+  become: true
+  roles:
+    - common
+
+- name: Configure Storage Node
+  hosts: storage_nodes
+  become: true
+  roles:
+    - storage

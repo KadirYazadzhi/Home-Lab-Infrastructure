@@ -1,0 +1,14 @@
+---
+- name: Create mount point
+  file:
+    path: /mnt/hdd_1tb
+    state: directory
+    mode: '0755'
+
+- name: Mount 1TB HDD
+  mount:
+    path: /mnt/hdd_1tb
+    src: UUID=YOUR_HDD_UUID_HERE
+    fstype: ext4
+    opts: defaults
+    state: mounted
