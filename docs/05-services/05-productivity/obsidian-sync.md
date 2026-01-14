@@ -1,11 +1,38 @@
 # Service: Obsidian Sync (CouchDB)
 
-### 🧐 What is it?
-A self-hosted backend for Obsidian.md using the LiveSync plugin.
+## 🧐 What is it?
+A CouchDB backend compatible with the Obsidian "LiveSync" plugin.
 
-### 💡 Why is it useful?
-Syncs your markdown notes across all devices in real-time without using a cloud provider.
+## 🛠️ Installation & Deployment
 
-### ⚖️ Pros & Cons
-*   **Pros:** Instant sync, total privacy.
-*   **Cons:** Plugin setup can be complex.
+### Docker Compose
+```yaml
+version: '3'
+services:
+  couchdb:
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=obsidian
+      - COUCHDB_PASSWORD=secret
+    volumes:
+      - ./couchdb_data:/opt/couchdb/data
+      - ./local.ini:/opt/couchdb/etc/local.ini
+    ports:
+      - "5984:5984"
+    restart: always
+```
+
+### 🔧 Configuration (local.ini)
+You must enable CORS for the plugin to work. Create a `local.ini` file:
+```ini
+[chttpd]
+enable_cors = true
+bind_address = 0.0.0.0
+
+[cors]
+origins = app://obsidian.md,capacitor://localhost,http://localhost
+credentials = true
+headers = accept, authorization, content-type, origin, referer
+methods = GET, PUT, POST, HEAD, DELETE
+max_age = 3600
+```

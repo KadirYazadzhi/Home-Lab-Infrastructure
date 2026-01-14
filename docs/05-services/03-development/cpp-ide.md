@@ -1,7 +1,18 @@
 # Service: CPP-IDE
 
-### 🧐 What is it?
-A web-based development environment for C++.
+## 🧐 What is it?
+Web-based C++ IDE.
 
-### 💡 Why is it useful?
-Allows you to write and compile C++ from any browser. It often works in tandem with Judge0 for code execution.
+## 🛠️ Installation & Deployment
+
+### Docker Compose
+```yaml
+version: '3'
+services:
+  cpp-ide:
+    image: cpp-ide-cpp-ide:latest # Assuming custom or local image
+    ports:
+      - "8443:8443"
+    restart: always
+```
+*Usually runs on HTTPS.*

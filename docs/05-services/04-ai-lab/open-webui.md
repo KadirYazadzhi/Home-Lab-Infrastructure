@@ -1,11 +1,27 @@
 # Service: Open-WebUI
 
-### 🧐 What is it?
-A web frontend for Ollama (and other LLM backends).
+## 🧐 What is it?
+A beautiful frontend for Ollama.
 
-### 💡 Why is it useful?
-Provides a ChatGPT-like interface. Supports file uploads (RAG), voice input, and chat history.
+## 🛠️ Installation & Deployment
 
-### ⚖️ Pros & Cons
-*   **Pros:** Multi-user support, beautiful UI, easy integration with local models.
-*   **Cons:** Can be resource-intensive on the frontend side.
+### Docker Compose
+```yaml
+version: '3'
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "3000:8080" # Maps internal 8080 to host 3000
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434 # Requires them to be on the same docker network
+    volumes:
+      - ./open-webui-data:/app/backend/data
+    restart: always
+```
+
+### ⚡ Configuration
+1.  Go to `http://<your-ip>:3000`.
+2.  **Sign Up:** The first user created becomes the Admin.
+3.  **Settings -> Models:** You should see the models you pulled in Ollama (e.g., `mistral:latest`). If not, check the `OLLAMA_BASE_URL` connection.

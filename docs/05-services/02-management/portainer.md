@@ -1,15 +1,36 @@
 # Service: Portainer
 
-### 🧐 What is it?
-A powerful GUI for Docker management. It simplifies container orchestration, image pulls, and volume management.
+## 🧐 What is it?
+Portainer is the standard GUI for Docker. It allows you to inspect containers, view logs, and manage stacks without using the CLI.
 
-### 💡 Why is it useful?
-Allows you to manage the entire 4-node cluster's Docker instances from a single web page. Essential for checking logs or restarting hung containers quickly.
+## 🛠️ Installation & Deployment
 
-### ⚖️ Pros & Cons
-*   **Pros:** Interactive console access, great visual representation of container health.
-*   **Cons:** If exposed, it's a massive security vulnerability.
+### Docker Compose
+```yaml
+version: '3'
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "8000:8000"
+      - "9443:9443" # HTTPS Access
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # CRITICAL: Gives control over Docker
+      - portainer_data:/data
 
-### 🛠️ Deployment Summary
-- **Image:** `portainer/portainer-ce:latest`
-- **Port:** `9443/tcp` (HTTPS), `9000/tcp` (HTTP)
+volumes:
+  portainer_data:
+```
+
+### ⚡ Quick Start
+1.  Run `docker-compose up -d`.
+2.  Navigate to `https://<your-ip>:9443`.
+3.  **Initial Setup:** You will be asked to create an admin user.
+4.  **Connect Environment:** Select "Get Started" with the local environment (the socket mounted above).
+
+## ⚠️ Security Warning
+Portainer has **root-level access** to your server via the Docker socket.
+*   Never expose port `9443` to the public internet.
+*   Use a long, complex password.

@@ -1,11 +1,40 @@
 # Service: Ollama
 
-### 🧐 What is it?
-A local LLM (Large Language Model) runner. It allows you to run models like Llama 3 or Mistral on your own hardware.
+## 🧐 What is it?
+The backend for running AI models.
 
-### 💡 Why is it useful?
-Privacy. You can chat with an AI without your data ever leaving your network.
+## 🛠️ Installation & Deployment
 
-### ⚖️ Pros & Cons
-*   **Pros:** Easy model management, supports GPU acceleration (if available).
-*   **Cons:** On your i5-6500, it relies on CPU inference, which is slow (2-5 t/s).
+### Docker Compose (CPU Only)
+Since your nodes are i5-6500 (no dedicated GPU), we use the standard image.
+
+```yaml
+version: '3'
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_models:/root/.ollama
+    restart: always
+    tty: true
+```
+
+### 📥 Managing Models
+Once the container is running, you need to download models inside it.
+1.  **Enter the container:**
+    ```bash
+    docker exec -it ollama bash
+    ```
+2.  **Pull a model (e.g., Mistral):**
+    ```bash
+    ollama run mistral
+    ```
+    *Note: On an i5-6500, expect slow performance (approx 2-4 tokens/sec).*
+
+3.  **List installed models:**
+    ```bash
+    ollama list
+    ```

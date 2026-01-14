@@ -1,11 +1,20 @@
 # Service: MySpeed
 
-### 🧐 What is it?
-A tool that tracks your internet speed over time.
+## 🧐 What is it?
+Speedtest tracker.
 
-### 💡 Why is it useful?
-Helps you monitor if your ISP is providing the bandwidth you're paying for.
+## 🛠️ Installation & Deployment
 
-### ⚖️ Pros & Cons
-*   **Pros:** Simple, visual.
-*   **Cons:** Tests consume data and bandwidth.
+### Docker Compose
+```yaml
+version: '3'
+services:
+  myspeed:
+    image: germannewsmaker/myspeed
+    volumes:
+      - ./myspeed_data:/myspeed/data
+    ports:
+      - "5216:5216"
+    restart: unless-stopped
+```
+*Access at `http://<your-ip>:5216`.*

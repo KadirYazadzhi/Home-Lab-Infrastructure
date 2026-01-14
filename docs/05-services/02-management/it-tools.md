@@ -1,11 +1,18 @@
 # Service: IT-Tools
 
-### 🧐 What is it?
-A collection of handy online tools for developers.
+## 🧐 What is it?
+Collection of developer tools.
 
-### 💡 Why is it useful?
-Contains JSON formatters, Base64 decoders, Password generators, etc. Since it's self-hosted, you don't leak your data to random websites.
+## 🛠️ Installation & Deployment
 
-### ⚖️ Pros & Cons
-*   **Pros:** 100% client-side, extremely useful.
-*   **Cons:** None.
+### Docker Compose
+```yaml
+version: '3'
+services:
+  it-tools:
+    image: corentinth/it-tools:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+```
+*Access at `http://<your-ip>:8080`.*
