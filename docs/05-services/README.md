@@ -11,3 +11,4 @@ This folder acts as a **Wiki**. Each subfolder contains a detailed Markdown file
 6.  **[06-media](06-media/):** Jellyfin & Automation.
 7.  **[07-databases](07-databases/):** SQL Servers.
 8.  **[08-vdi](08-vdi/):** Kasm Workspaces.
+9.  **[09-kubernetes](09-kubernetes/):** Cluster Setup & Management.
